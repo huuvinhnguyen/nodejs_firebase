@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
     '<h1>Tes Express & Firebase Cloud Firestore</h1><ul><li><p><b>GET /data/esp8266</b></p></li><li><p><b>GET /data/esp32</b></p></li><li><p><b>GET /data/mkr1000</b></p></li><li><p><b>POST /data/esp8266</b>  => {suhu, lembab, analog}</p></li><li><p><b>POST /data/esp32</b>  => {suhu, lembab, analog}</p></li><li><p><b>POST /data/mkr1000</b>  => {suhu, lembab, analog}</p></li></ul>')
 })
 
-app.get('/data/esp8266', (req, res) => {
+app.get('/data', (req, res) => {
   const db = fire.firestore();
     db.settings({
       timestampsInSnapshots: true
@@ -36,22 +36,18 @@ app.get('/data/esp8266', (req, res) => {
   })
 })
 
-app.post('/data/esp8266', (req, res)=>{
+app.post('/data', (req, res)=>{
   const db = fire.firestore();
 	db.settings({
       timestampsInSnapshots: true
     });
     db.collection('lin_esp8266').add({
-      suhu: req.body.suhu,
-      lembab: req.body.lembab,
-      analog: req.body.analog,
-      waktu: new Date()
+      value: req.body.value,
+      time: new Date()
     });
     res.send({
-      suhu: req.body.suhu,
-      lembab: req.body.lembab,
-      analog: req.body.analog,
-      waktu: new Date(),
+      value: req.body.value,
+      time: new Date(),
       status: 'POST data sukses!'
   })
 })
