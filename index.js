@@ -20,7 +20,7 @@ app.get('/data', (req, res) => {
       timestampsInSnapshots: true
     });
     var wholeData = []
-	db.collection('lin_esp8266').orderBy('waktu', 'asc').get()
+	db.collection('lin_esp8266').orderBy('time', 'asc').get()
     .then(snapshot => {
       snapshot.forEach(doc => {
         // console.log(doc.id, '=>', doc.data());
